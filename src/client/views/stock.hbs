@@ -1,0 +1,23 @@
+
+<div class="container">
+    {{#if success}}
+        <h1>ZTE Mobiles Stock</h1>
+        <div class="wrapper">
+            {{#if db}}
+                <div class="grid-container">
+                    {{#each mobiles}}
+                        <div class="grid-item">
+                            <a href="{{URL_BASE}}/mobile/{{_id}}">
+                                {{>card}}
+                            </a>
+                        </div>
+                    {{/each}}
+                </div>
+            {{else}}
+                <h3>Base de datos bacia</h3>
+            {{/if}}
+        </div>
+    {{else}}
+        <h3>Error</h3>
+    {{/if}}
+</div>
