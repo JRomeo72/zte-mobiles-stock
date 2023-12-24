@@ -8,8 +8,10 @@
     --light: #979797;
     --green: #569066;
 
-    --yellow: #dcd50f;
-    --red: #e3350e;
+    --yellow: #b9b40e;
+    --yellow-hover: #e5de13;
+    --red: #b52b0c;
+    --red-hover: #eb3f18;
 }
 
 * {
@@ -77,7 +79,6 @@ ul {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* border: 1px solid blue; */
     padding: 30px 20px;
 }
 
@@ -86,8 +87,31 @@ ul {
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
-    /* justify-content: center; */
 }
+
+.back-card {
+    position: absolute;
+    z-index: -10;
+    top: 0;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #0000003f;
+    backdrop-filter: blur(10px);
+    width: 100%;
+    min-height: 100vh;
+    padding: 60px 20px;
+    transition: opacity .5s ease;
+}
+
+.back-card.show {
+    opacity: 1;
+}
+
+.back-card.back {
+    z-index: unset;
+}
+
 
 .home {
     display: flex;
@@ -136,7 +160,14 @@ ul {
 
 .card figure {
     width: 300px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card figure img {
+    width: 200px;
 }
 
 .card img {
@@ -165,15 +196,21 @@ ul {
     background-color: var(--yellow);
     font-size: 28px;
     margin-right: 10px;
+    transition: background .3s ease;
 }
 
 .actions button.btn-edit:hover {
-    background-color: #66630d;
+    background-color: var(--yellow-hover);
 }
 
 .actions button.btn-delete {
     background-color: var(--red);
     font-size: 28px;
+    transition: background .3s ease;
+}
+
+.actions button.btn-delete:hover {
+    background-color: var(--red-hover);
 }
 
 .form-field-text {
@@ -262,6 +299,27 @@ input[type='submit'] {
     border: none;
     border-radius: 6px;
     margin: 0 auto;
+}
+
+input[type='button'] {
+    padding: 6px 20px;
+    background-color: var(--secundary);
+    color: var(--primary);
+    border: none;
+    border-radius: 6px;
+    margin: 0 auto;
+}
+
+input[type='submit']:hover, 
+input[type='button']:hover,
+.form-field-file label:hover {
+    background-color: var(--green);
+    color: var(--primary);
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
 }
 
 .mobile-item {

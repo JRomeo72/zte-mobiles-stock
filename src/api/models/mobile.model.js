@@ -31,8 +31,15 @@ const MobileSchema = new Schema(
             type: Number
         },
         imagen: {
-            type: String,
-            require: true
+            public_id: {
+                type: String,
+                require: true
+            },
+            secure_url: {
+                type: String,
+                require: true
+            }
+
         }
 
     },

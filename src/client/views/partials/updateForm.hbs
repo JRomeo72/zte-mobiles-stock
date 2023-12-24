@@ -1,40 +1,39 @@
-{{!-- <form id="addform" action="URL_BASE/api/add" enctype="multipart/form-data" method="post" > --}}
-<form id="addform">
+<form id="updateform" data-id="{{_id}}">
 
     <div class="form-field-text">
-        <input type="text" name="nombre" required>
+        <input type="text" name="nombre" required value="{{nombre}}">
         <label for="">Nombre</label>
     </div>
 
     <div class="form-field-text">
-        <input type="text" name="modelo" required>
+        <input type="text" name="modelo" required value="{{modelo}}">
         <label for="">Modelo</label>
     </div>
 
     <div class="form-field-text">
-        <input type="text" name="empresa" required>
+        <input type="text" name="empresa" required value="{{empresa}}">
         <label for="">Empresa</label>
     </div>
 
     <div class="form-field-text">
-        <input type="text" name="almacenado" required>
+        <input type="text" name="almacenado" required value="{{almacenado}}">
         <label for="">Almacenado</label>
     </div>
 
     <div class="form-group">
         <div class="form-field">
             <label for="sims">SIMs: </label>
-            <input type="number" name="sims" id="sims" min=1 max=2 value=1>
+            <input type="number" name="sims" id="sims" min=1 max=2  value="{{sims}}">
         </div>
 
         <div class="form-field">
             <label for="cantidad">In: </label>
-            <input type="number" name="cantidad" id="cantidad" min=0 max=10 value=0>
+            <input type="number" name="cantidad" id="cantidad" min=0 max=10  value="{{cantidad}}">
         </div>
 
         <div class="form-field">
             <label for="entrgados">Out: </label>
-            <input type="number" name="entregados" id="entregados" min=0 max=10 value=0>
+            <input type="number" name="entregados" id="entregados" min=0 max=10  value="{{entregados}}">
         </div>
     </div>
     
@@ -43,8 +42,14 @@
         <input type="file" name="imagen" id="upload-button" multiple="false">
     </div>
 
-    <div class="form-field-submit">
-        <input type="submit" value="Enviar">
+    <div class="buttons">
+        <div class="form-field-submit">
+            <input type="submit" value="Enviar">
+        </div>
+
+        <div class="form-field-submit">
+            <input type="button" id="btn-cancel" value="Cancelar">
+        </div>
     </div>
 
 </form>

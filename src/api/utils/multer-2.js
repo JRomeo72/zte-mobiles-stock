@@ -8,11 +8,15 @@ import { __dirname, __join } from '../../dirname.js';
 const dirStorage = __join(__dirname, './api/storage');
 const dirPublic = __join(__dirname, '../public/img');
 
-export const saveFile = (file) => {
-    const newPath = `${dirPublic}/${file.originalname}`;
-    // console.log('Path', file.path)
-    // console.log('Path nuevo', newPath)
-    fs.renameSync(file.path, newPath)
+export const saveFile = (file, nombre) => {
+    let formatName = nombre.split(" ").join("-").toLowerCase();
+    let ext = file.originalname.split(".").pop();
+    let newName = `${formatName}.${ext}`
+    const newPath = `${dirPublic}/${newName}`;
+
+    fs.renameSync(file.path, newPath);
+
+    return newName
 }
 
 const uploadMiddleware = multer( { dest: dirStorage } )

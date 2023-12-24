@@ -1,6 +1,9 @@
+import fs from 'fs';
 import Mobile from "../models/mobile.model.js";
-import { saveFile } from "../config/multer.js";
+import { saveFile } from "../utils/multer.js";
+import uploadImageCloud from "../utils/cloudinary.js";
 
+// > Get All Mobiles 
 const getStock = async (req, res) => {
 
     if(req.baseUrl == '/api') {
@@ -24,6 +27,7 @@ const getStock = async (req, res) => {
     }
 };
 
+//> Get One Mobile 
 const getMobile = async (req, res) => {
     const { id } = req.params;
 
@@ -46,6 +50,7 @@ const getMobile = async (req, res) => {
     }
 };
 
+//> Add a New Mobile 
 const postMobile = async (req, res) => {
 
     if(req.baseUrl == '/api') {
@@ -56,43 +61,73 @@ const postMobile = async (req, res) => {
             const entregados = Number(req.body.entregados);
             let stock = cantidad - entregados;
             let imagen = '';
+
+            const _next = async () => {
+
+                const mobile = {
+                    nombre,
+                    modelo,
+                    empresa,
+                    almacenado,
+                    sims,
+                    cantidad,
+                    entregados,
+                    stock,
+                    imagen
+                };
+    
+                const newMobile = await Mobile.create(mobile);
+                res.send( { 'New Mobile': newMobile } )
+            }
         
             if(req.files) {
                 req.files.map(img => saveFile(img));
             };
             
             if(req.file) {
-                saveFile(req.file);
-                imagen = req.file.originalname
+                // const { newName, newPath } = saveFile(req.file, nombre);
+                // let newPath = saveFile(req.file, nombre)
+                // const result = await uploadImageCloud(newPath);
+                const result = await uploadImageCloud(req.file.path);
+
+                fs.unlinkSync(req.file.path);
+
+                imagen = {
+                    public_id: result.public_id,
+                    secure_url: result.secure_url
+                };
+
+                _next()
+            } else {
+                _next()
             };
         
-            const mobile = {
-                nombre,
-                modelo,
-                empresa,
-                almacenado,
-                sims,
-                cantidad,
-                entregados,
-                stock,
-                imagen
-            };
-
-            const newMobile = await Mobile.create(mobile);
-            res.send( { 'New Mobile': newMobile } )
         } catch (error) {
             res.send( { 'message': "Error en el proceso" } )
         }
     } else {
-        res.render( 'add', { url: process.env.URL_BASE })
+        res.render( 'add' )
     }
 
 };
 
-const putMobile = (req, res) => {
-    res.send('<h1>Put Mobile</h1>')
+//> Update a Mobile 
+const putMobile = async (req, res) => {
+    
+    if(req.baseUrl == '/api') {
+        
+    } else {
+        try {
+            
+            res.render()
+        } catch (error) {
+            res.render()
+        }
+        
+    }
 };
 
+//> Delete a Mobile 
 const deleteMobile = async (req, res) => {
     const { id } = req.params;
 

@@ -1,30 +1,42 @@
 <div class="container">
     <h1>ZTE Mobiles Stock - Detail</h1>
-        <div class="wrapper">
-            {{#if success}}
-                <div class="mobile-item">
-                    <img src="/img/{{mobile.imagen}}" alt="telefono">
-                    <div class="info">
-                        <h3><span class="green">{{mobile.nombre}}</span></h3>
-                        <p>Modelo: <span class="green">{{mobile.modelo}}</span></p>
-                        <p>Empresa: <span class="green">{{mobile.empresa}}</span></p>
-                        <p>Guardado: <span class="green">{{mobile.almacenado}}</span></p>
-                        <p>SIMs: <span class="green">{{mobile.sims}}</span></p>
-                        <p>Cantidad: <span class="green">{{mobile.cantidad}}</span></p>
-                        <p>Entregados: <span class="green">{{mobile.entregados}}</span></p>
-                        <p>En stock: <span class="green">{{mobile.stock}}</span></p>
-                        <div class="actions" id="actions">
-                            <button class="btn-edit" id="btn-edit" data-id="{{mobile._id}}">
-                                <i class="fa-regular fa-pen-to-square" data-id="{{mobile._id}}"></i>
-                            </button>
-                            <button class="btn-delete" id="btn-delete" data-id="{{mobile._id}}">
-                                <i class="fa-regular fa-trash-can" data-id="{{mobile._id}}"></i>
-                            </button>
-                        </div>
+    <div class="wrapper">
+        {{#if success}}
+            <div class="mobile-item">
+                <img src="/img/{{mobile.imagen}}" alt="telefono">
+                <div class="info">
+                    <h3><span class="green">{{mobile.nombre}}</span></h3>
+                    <p>Modelo: <span class="green">{{mobile.modelo}}</span></p>
+                    <p>Empresa: <span class="green">{{mobile.empresa}}</span></p>
+                    <p>Guardado: <span class="green">{{mobile.almacenado}}</span></p>
+                    <p>SIMs: <span class="green">{{mobile.sims}}</span></p>
+                    <p>Cantidad: <span class="green">{{mobile.cantidad}}</span></p>
+                    <p>Entregados: <span class="green">{{mobile.entregados}}</span></p>
+                    <p>En stock: <span class="green">{{mobile.stock}}</span></p>
+                    <div class="actions" id="actions">
+                        <button class="btn-edit" id="btn-edit" data-id="{{mobile._id}}">
+                            <i class="fa-regular fa-pen-to-square" data-id="{{mobile._id}}"></i>
+                        </button>
+                        <button class="btn-delete" id="btn-delete" data-id="{{mobile._id}}">
+                            <i class="fa-regular fa-trash-can" data-id="{{mobile._id}}"></i>
+                        </button>
                     </div>
                 </div>
-            {{else}}
-                <h3>{{message}}</h3>
-            {{/if}}
-        </div>
+            </div>
+        {{else}}
+            <h3>{{message}}</h3>
+        {{/if}}
+    </div>
 </div>
+
+{{#if success}}
+    <div class="back-card" id="back-card">
+        <div class="card shadow">
+            <figure class="image-container">
+                <img id="chosen-image" src="/img/{{mobile.imagen}}">
+                <figcaption id="file-name">{{mobile.imagen}}</figcaption>
+            </figure>
+            {{>updateForm mobile}}
+        </div>
+    </div>
+{{/if}}
