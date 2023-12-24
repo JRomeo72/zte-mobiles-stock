@@ -3,7 +3,7 @@
     <div class="wrapper">
         {{#if success}}
             <div class="mobile-item">
-                <img src="/img/{{mobile.imagen}}" alt="telefono">
+                <img src="{{mobile.imagen.secure_url}}" alt="telefono">
                 <div class="info">
                     <h3><span class="green">{{mobile.nombre}}</span></h3>
                     <p>Modelo: <span class="green">{{mobile.modelo}}</span></p>
@@ -33,8 +33,8 @@
     <div class="back-card" id="back-card">
         <div class="card shadow">
             <figure class="image-container">
-                <img id="chosen-image" src="/img/{{mobile.imagen}}">
-                <figcaption id="file-name">{{mobile.imagen}}</figcaption>
+                <img id="chosen-image" src="{{mobile.imagen.secure_url}}">
+                <figcaption id="file-name">{{mobile.nombre}}</figcaption>
             </figure>
             {{>updateForm mobile}}
         </div>
