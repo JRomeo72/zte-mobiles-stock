@@ -1,7 +1,7 @@
 import fs from 'fs';
 import Mobile from "../models/mobile.model.js";
 import { saveFile } from "../utils/multer.js";
-import uploadImageCloud from "../utils/cloudinary.js";
+import { uploadImageCloud, deleteImageCloud } from "../utils/cloudinary.js";
 
 // > Get All Mobiles 
 const getStock = async (req, res) => {
@@ -99,6 +99,10 @@ const postMobile = async (req, res) => {
 
                 _next()
             } else {
+                imagen = {
+                    public_id: "",
+                    secure_url: "/img/image.jpg"
+                };
                 _next()
             };
         
@@ -133,6 +137,10 @@ const deleteMobile = async (req, res) => {
 
     try {
         const response = await Mobile.findByIdAndDelete(id);
+        console.log(response.imagen.public_id)
+        if(response.imagen.public_id) {
+            await deleteImageCloud(response.imagen.public_id)
+        }
         res.send(response)
     } catch (error) {
         res.send( { 'message': "Error en el proceso" } )
