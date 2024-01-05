@@ -1,0 +1,21 @@
+{{#if _number}}
+    <div class="{{_class}}">
+        <label for="{{_for}}">{{_label}}</label>
+        <input type="{{_type}}" name="{{_name}}" id="{{_id}}" min={{_min}} max={{_max}} value={{_value}}>
+    </div>
+{{/if}}
+
+{{#if _text}}
+    <div class="form-control {{_class}}">
+        <input type="{{_type}}" name="{{_name}}" required>
+        <label for="">{{_label}}</label>
+        <i class="fa-regular fa-circle-check"></i>
+        <small>Error message</small>
+    </div>
+{{/if}}
+
+{{#if _submit}}
+    <div class="{{_class}}">
+        <input type="{{_type}}" value="{{_value}}">
+    </div>
+{{/if}}

@@ -14,7 +14,7 @@ if(uploadButton) {
 };
 
 
-const addForm = document.getElementById('addform');
+const addForm = document.getElementById('addForm');
 
 if(addForm) {
     addForm.addEventListener('submit', async (e) => {
@@ -31,7 +31,7 @@ if(addForm) {
 };
 
 
-const updateForm = document.getElementById('updateform');
+const updateForm = document.getElementById('updateForm');
 
 if(updateForm) {
     updateForm.addEventListener('submit', async (e) => {
