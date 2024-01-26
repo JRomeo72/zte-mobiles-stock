@@ -20,7 +20,7 @@ app.engine('.hbs', engine( { extname: '.hbs' } ));
 app.set('view engine', '.hbs');
 app.set('views', __join(__dirname, './client/views'))
 
-app.get('/', (req, res) => res.render('home'))
+// app.get('/', (req, res) => res.render('home'))
 
 app.use('/', clientRouter);
 app.use('/api', apiRouter);

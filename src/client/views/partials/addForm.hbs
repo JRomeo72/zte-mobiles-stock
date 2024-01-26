@@ -1,52 +1,17 @@
 {{!-- <form id="addform" action="URL_BASE/api/add" enctype="multipart/form-data" method="post" > --}}
 <form id="addForm">
 
-    {{!-- <div class="form-field-text">
-        <input type="text" name="nombre" required>
-        <label for="">Nombre</label>
-    </div> --}}
-
     {{>item-form _text=true _class="text" _type="text" _name="nombre" _label="Nombre"}}
-
-    <div class="form-control text">
-        <input type="text" name="modelo" required>
-        <label for="">Modelo</label>
-    </div>
-
-    <div class="form-control text">
-        <input type="text" name="empresa" required>
-        <label for="">Empresa</label>
-    </div>
-
-    <div class="form-control text">
-        <input type="text" name="almacenado" required>
-        <label for="">Almacenado</label>
-    </div>
-
+    {{>item-form _text=true _class="text" _type="text" _name="modelo" _label="Modelo"}}
+    {{>item-form _text=true _class="text" _type="text" _name="empresa" _label="Empresa"}}
+    {{>item-form _text=true _class="text" _type="text" _name="almacenado" _label="Almacenado"}}
     <div class="form-group">
-        <div class="form-control number">
-            <label for="sims">SIMs: </label>
-            <input type="number" name="sims" id="sims" min=1 max=2 value=1>
-        </div>
-
-        <div class="form-control number">
-            <label for="cantidad">In: </label>
-            <input type="number" name="cantidad" id="cantidad" min=0 max=10 value=0>
-        </div>
-
-        <div class="form-control number">
-            <label for="entrgados">Out: </label>
-            <input type="number" name="entregados" id="entregados" min=0 max=10 value=0>
-        </div>
+        {{>item-form _number=true _class="number" _for="sims" _label="SIMs: " _type="number" _name="sims" _id="sims" _min=1 _max=2 _value=1}}
+        {{>item-form _number=true _class="number" _for="cantidad" _label="In: " _type="number" _name="cantidad" _id="cantidad" _min=0 _max=10 _value=0}}
+        {{>item-form _number=true _class="number" _for="entregados" _label="Out: " _type="number" _name="entregados" _id="entregados" _min=0 _max=10 _value=0}}
     </div>
+    {{>item-form _file=true _class="file" _img="/img/cloud-upload.svg" _type="file" _name="imagen" _id="upload-button" _multiple=false}}
     
-    <div class="form-control file">
-        <label for="upload-button"><img src="/img/cloud-upload.svg" alt="">&nbsp; Choose a image</label>
-        <input type="file" name="imagen" id="upload-button" multiple="false">
-    </div>
-
-    <div class="form-control submit">
-        <input type="submit" value="Enviar">
-    </div>
+    {{>item-form _submit=true _class="submit" _type="submit" _value="enviar form"}}
 
 </form>

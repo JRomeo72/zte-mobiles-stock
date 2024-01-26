@@ -1,19 +1,20 @@
 import { Router } from "express";
 import uploadMiddleware from "../utils/multer.js";
 import mobile from "../controllers/mobile.controller.js";
+import { authorized } from "../middlewares/authorization.js";
 
 const router = Router();
 
-router.get('/stock', mobile.getStock);
+router.get('/stock', authorized, mobile.getStock);
 
-router.get('/mobile/:id', mobile.getMobile);
+router.get('/mobile/:id', authorized, mobile.getMobile);
 
-router.post('/add', uploadMiddleware.single('imagen'), mobile.postMobile);
+router.post('/add', authorized, uploadMiddleware.single('imagen'), mobile.postMobile);
 // router.post('/add', uploadMiddleware.array('photo', 2), mobile.postMobile);
 
-router.put('/edit/:id', uploadMiddleware.single('imagen'), mobile.putMobile);
+router.put('/edit/:id', authorized, uploadMiddleware.single('imagen'), mobile.putMobile);
 
-router.delete('/delete/:id', mobile.deleteMobile);
+router.delete('/delete/:id', authorized, mobile.deleteMobile);
 
 
 export default router;

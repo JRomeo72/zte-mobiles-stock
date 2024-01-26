@@ -7,9 +7,10 @@
 
 {{#if _text}}
     <div class="form-control {{_class}}">
-        <input type="{{_type}}" name="{{_name}}" required>
-        <label for="">{{_label}}</label>
-        <i class="fa-regular fa-circle-check"></i>
+        <input type="{{_type}}" name="{{_name}}" id="{{_id}}" autocomplete="{{_complete}}" value="{{_value}}" required>
+        <label for="{{_id}}">{{_label}}</label>
+        <i id="check" class="fa-regular fa-circle-check"></i>
+        <i id="error" class="fa-solid fa-circle-exclamation"></i>
         <small>Error message</small>
     </div>
 {{/if}}
@@ -17,5 +18,12 @@
 {{#if _submit}}
     <div class="{{_class}}">
         <input type="{{_type}}" value="{{_value}}">
+    </div>
+{{/if}}
+
+{{#if _file}}
+    <div class="form-control {{_class}}">
+        <label for="{{_id}}"><img src="{{_img}}" alt="">&nbsp; Choose a image</label>
+        <input type="{{_type}}" name="{{_name}}" id="{{_id}}" multiple="_multiple">
     </div>
 {{/if}}

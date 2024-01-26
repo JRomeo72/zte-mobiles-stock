@@ -1,9 +1,17 @@
 <div class="navbar">
     <div class="nav">
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/stock">Stock</a></li>
-            <li><a href="/add">Add</a></li>
+            {{#if _token}}
+                <li><a href="/stock">Stock</a></li>
+                <li><a href="/add">Add</a></li>
+                <li><a id="logout" href="/api/logout">Logout</a></li>
+            {{else}}
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            {{/if}}
+
+            
         </ul>
     </div>
 </div>

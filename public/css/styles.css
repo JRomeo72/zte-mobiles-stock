@@ -219,20 +219,26 @@ form .form-control.text i {
   color: var(--green);
   display: none;
 }
+form .form-control.text i#error {
+  color: var(--red);
+}
 form .form-control.text small {
   color: var(--red);
   margin: 0;
   padding: 0;
   display: none;
 }
-form .form-control.text small.show {
-  display: initial;
-}
-form .form-control.text.success i {
+form .form-control.text.checked i#check {
   display: initial;
 }
 form .form-control.text.error small {
   display: initial;
+}
+form .form-control.text.error i#error {
+  display: initial;
+}
+form .form-control.text.error input {
+  border-color: var(--red);
 }
 form input[type=text], form input[type=password], form input[type=email] {
   width: 100%;
@@ -245,14 +251,17 @@ form input[type=text], form input[type=password], form input[type=email] {
   border-radius: 6px;
   outline: none;
 }
+form input[type=text]:focus, form input[type=password]:focus, form input[type=email]:focus {
+  border-color: var(--green);
+}
 form input[type=text]:focus ~ label, form input[type=text]:valid ~ label, form input[type=password]:focus ~ label, form input[type=password]:valid ~ label, form input[type=email]:focus ~ label, form input[type=email]:valid ~ label {
   font-size: 12px;
   padding: 0 10px;
   transform: translateX(10px) translateY(-20px);
   background-color: var(--primary);
-  color: var(--secundary);
-  border-left: 1px solid var(--line);
-  border-right: 1px solid var(--line);
+  color: var(--green);
+  border-left: 1px solid var(--green);
+  border-right: 1px solid var(--green);
 }
 form input[type=number] {
   width: 50px;
@@ -287,10 +296,10 @@ form .form-group {
   justify-content: space-between;
   margin-bottom: 20px;
 }
-form .form-field-file {
+form .form-control.file {
   margin-bottom: 15px;
 }
-form .form-field-file label {
+form .form-control.file label {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -302,7 +311,7 @@ form .form-field-file label {
   padding: 15px 0;
   border-radius: 6px;
 }
-form .form-field-file label img {
+form .form-control.file label img {
   width: 40px;
 }
 form input[type=submit]:hover,
@@ -343,11 +352,13 @@ form .buttons {
   max-width: 350px;
 }
 .auth-card .info {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .auth-card #message {
   opacity: 0;
   transition: opacity 0.5s ease;
+  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .auth-card #message.show {
   opacity: 1;
@@ -356,7 +367,6 @@ form .buttons {
   background-color: #b99494;
   color: #a41c1c;
   padding: 5px 10px;
-  margin-bottom: 20px;
   border-radius: 5px;
 }
 

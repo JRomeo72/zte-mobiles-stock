@@ -17,9 +17,9 @@ const getStock = async (req, res) => {
         try {
             const mobiles = await Mobile.find().lean()
             if(mobiles != "") {
-                res.render( 'stock', { mobiles, success: true, db: true } )
+                res.render( 'stock', { mobiles, success: true, db: true, token: req.token } )
             }else{
-                res.render( 'stock', { success: true, db: false } )
+                res.render( 'stock', { success: true, db: false, token: req.token } )
             }
         } catch (error) {
             res.render( 'stock', { success: false } )
@@ -43,9 +43,9 @@ const getMobile = async (req, res) => {
         try {
             const foundMobile = await Mobile.findById(id).lean();
             if(!foundMobile) return res.render( 'mobile', { success: false, message: "Item no encontrado" } );
-            res.render( 'mobile', { mobile: foundMobile, success: true } )
+            res.render( 'mobile', { mobile: foundMobile, success: true, token: req.token } )
         } catch (error) {
-            res.render( 'mobile', { success: false, message: "Error en la busqueda" } )
+            res.render( 'mobile', { success: false, message: "Error en la busqueda", token: req.token } )
         }
     }
 };
@@ -110,7 +110,7 @@ const postMobile = async (req, res) => {
             res.send( { 'message': "Error en el proceso" } )
         }
     } else {
-        res.render( 'add' )
+        res.render( 'add', { token: req.token } )
     }
 
 };

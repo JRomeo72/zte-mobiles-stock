@@ -251,6 +251,8 @@ form {
             top: 18px;
             color: var(--green);
             display: none;
+
+            &#error { color: var(--red); }
         }
 
         small {
@@ -258,25 +260,18 @@ form {
             margin: 0;
             padding: 0;
             display: none;
-
-            &.show {
-                display: initial;
-            }
         }
 
-        &.success {
-            i {
-                display: initial;
-            }
+        &.checked {
+            i#check { display: initial; }
         }
-    }
 
-    .form-control.text.error {
-        small {
-            display: initial;
+        &.error {
+            small { display: initial; }
+            i#error { display: initial; }
+            input { border-color: var(--red); }
         }
     }
-
     
     input {
     
@@ -291,15 +286,19 @@ form {
             font-size: 18px;
             border-radius: 6px;
             outline: none;
+
+            &:focus {
+                border-color: var(--green);
+            }
     
             &:focus~label, &:valid~label {
                 font-size: 12px;
                 padding: 0 10px;
                 transform: translateX(10px) translateY(-20px);
                 background-color: var(--primary);
-                color: var(--secundary);
-                border-left: 1px solid var(--line);
-                border-right: 1px solid var(--line);
+                color: var(--green);
+                border-left: 1px solid var(--green);
+                border-right: 1px solid var(--green);
             }
         }
     
@@ -342,7 +341,7 @@ form {
         margin-bottom: 20px;
     }
     
-    .form-field-file {
+    .form-control.file {
         margin-bottom: 15px;
     
         label {
@@ -386,20 +385,21 @@ form {
     width: 100%;
     max-width: 350px;
 
-    & figure {
+    figure {
         margin-bottom: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
-
     }
 
     img {
         width: 200px;
     }
+  
 
     & #addForm, & #updateForm {
         width: 100%;
+
     }
 }
 
@@ -416,6 +416,8 @@ form {
     #message {
         opacity: 0;
         transition: opacity .5s ease;
+        margin-bottom: 20px;
+        margin-bottom: 30px;
 
         &.show {
             opacity: 1;
@@ -425,9 +427,7 @@ form {
             background-color: #b99494;
             color: #a41c1c;
             padding: 5px 10px;
-            margin-bottom: 20px;
             border-radius: 5px;
-            margin-bottom: 10px;
         }
     }
 

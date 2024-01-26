@@ -1,11 +1,19 @@
+import inputValidator, { inputsCheked } from "./inputValidator.js";
 
-const register = document.getElementById('register');
-const submit = register.querySelector('input[type="submit"]');
-const message = document.getElementById('message');
+let register = document.getElementById('register');
+let login = document.getElementById('login');
+let registerSubmit = register?.querySelector('input[type="submit"]');
+let loginSubmit = login?.querySelector('input[type="submit"]');
+let loginEmail = login?.querySelector('input[name="email"]');
+// let logout = document.getElementById('logout');
 
-const showMessage = (message, textMessage) => {
-    message.innerHTML = textMessage
-    message.classList.add('show')
+
+let message = document.getElementById('message');
+
+const showMessage = (message, text) => {
+    message.innerHTML = text;
+    message.classList.add('show');
+    hiddeMessage(message)
 };
 
 const hiddeMessage = (message) => {
@@ -18,97 +26,22 @@ const hiddeMessage = (message) => {
     }, 5500);
 };
 
-const validationRegisterForm = (e) => {
-    let user = e.target[0]
-    let email = e.target[1]
-    let password_1 = e.target[2]
-    let password_2 = e.target[3]
-
-    let userValue = user.value.trim();
-    let emailValue = email.value.trim();
-    let pass1Value = password_1.value.trim();
-    let pass2Value = password_2.value.trim();
-
-    if(userValue === '') {
-        setError(user, "Nombre de usuario obligatorio");
-        return false
-    } else if(userValue.length < 4) {
-        setError(user, "Nombre de usuario 4 caracteres minimo");
-        return false
-    } else {
-        setSuccess(user);
-    };
-
-    if(emailValue === '') {
-        setError(email, "Email obligatorio");
-        return false
-    } else if(!isEmail(emailValue)) {
-        setError(email, "Formato de email no valido");
-        return false
-    } else {
-        setSuccess(email);
-    };
-
-    if(pass1Value === '') {
-        setError(password_1, "Password obligatorio");
-        return false
-    } else if(pass1Value.length < 8) {
-        setError(password_1, "Password 8 caracteres minimo");
-        return false
-    } else {
-        setSuccess(password_1);
-    };
-
-    if(pass2Value === '') {
-        setError(password_2, "Password obligatorio");
-        return false
-    } else if(pass2Value.length < 8) {
-        setError(password_2, "Password 8 caracteres minimo");
-        return false
-    } else {
-        setSuccess(password_2);
-    };
-
-    if(pass1Value !== pass2Value) {
-        setError(password_1, "Las contraseñas son diferentes");
-        setError(password_2, "Las contraseñas son diferentes");
-        return false
-    }
-
-    return true
-};
-
-const setError = (input, message) => {
-    let formControl = input.parentElement;
-    let small = formControl.querySelector('small');
-    small.innerHTML = message
-    formControl.className = 'form-control text error';
-};
-
-const setSuccess = (input) => {
-    let formControl = input.parentElement;
-    formControl.className = 'form-control text success';
-};
-
-const isEmail = email => {
-	return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
-};
-
 if(register) {
+    let inputs = register.querySelectorAll('input[type="text"], input[type="password"]');
+    inputs.forEach(input => {
+        input.addEventListener('keyup', inputValidator);
+        input.addEventListener('blur', inputValidator);
+    });
+
     register.addEventListener('submit', async (e) => {
         e.preventDefault();
-        submit.disabled = true
+        let { user, email, password_1, password_2 } = inputsCheked
 
-        let validated = validationRegisterForm(e);
+        if(!user || !email || !password_1 || !password_2) {
+            return showMessage(message, "<p>Campos incompletos o invalidos</p>")
+        }
 
-        if(!validated) return submit.disabled = false;
-
-        // if(e.target[2].value.trim() != e.target[3].value.trim()) {
-        //     const textMessage = '<p>Las contraseñas son diferentes</p>';
-        //     showMessage(message, textMessage);
-        //     hiddeMessage(message)
-        //     return
-        // };
+        registerSubmit.disabled = true
         
         const body = JSON.stringify({
             user: e.target[0].value,
@@ -127,18 +60,73 @@ if(register) {
         const data = await res.json();
 
         if(res.ok) {
-            const textMessage = `<p>${data.message}</p>`;
-            showMessage(message, textMessage);
+            const text = `<p>${data.message}</p>`;
+            showMessage(message, text);
             hiddeMessage(message)
             setTimeout(() => {
                 window.location.href = '/login'
             }, 3000);
         } else {
-            const textMessage = `<p>${data.message}</p>`;
-            showMessage(message, textMessage);
+            const text = `<p>${data.message}</p>`;
+            showMessage(message, text);
             hiddeMessage(message)
-            submit.disabled = false;
+            registerSubmit.disabled = false;
         };
 
     })
 };
+
+if(login) {
+    loginEmail.addEventListener('keyup', inputValidator);
+    loginEmail.addEventListener('blur', inputValidator);
+
+    login.addEventListener('submit', async e => {
+        e.preventDefault();
+        loginSubmit.disabled = true;
+        let { email } = inputsCheked;
+        let password = e.target[1];
+
+        if(!email || password.value.trim() == '') {
+            loginSubmit.disabled = false;
+            return showMessage(message, "<p>Campos incompletos o invalidos</p>")
+        }
+        
+        const body = JSON.stringify({
+            email: e.target[0].value,
+            password: e.target[1].value,
+        });
+
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: body
+        });
+
+        const data = await res.json();
+
+        if(res.ok) {
+            const text = `<p>${data.message}</p>`;
+            showMessage(message, text);
+            setTimeout(() => {
+                window.location.href = '/'
+            }, 3000);
+        } else {
+            const text = `<p>${data.message}</p>`;
+            showMessage(message, text);
+            loginSubmit.disabled = false;
+        };
+
+
+    })
+
+};
+
+// if(logout) {
+//     logout.addEventListener('click', async e => {
+//         // e.preventDefault()
+
+//         fetch('/api/logout')
+//     })
+// }

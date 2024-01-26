@@ -8,8 +8,8 @@
                     <p>Registrate para que puedas acceder al area restringida</p>
                 </div>
                 {{>message _class="red"}}
-                {{>item-form _text=true _class="text" _type="text" _name="user" _label="Usuario"}}
-                {{>item-form _text=true _class="text" _type="text" _name="email" _label="Email"}}
+                {{>item-form _text=true _class="text" _type="text" _name="user" _label="Usuario" _complete="off"}}
+                {{>item-form _text=true _class="text" _type="text" _name="email" _label="Email" _complete="off"}}
                 {{>item-form _text=true _class="text" _type="password" _name="password_1" _label="Password"}}
                 {{>item-form _text=true _class="text" _type="password" _name="password_2" _label="Confirme password"}}
                 {{>item-form _submit=true _class="submit" _type="submit" _value="Register"}}

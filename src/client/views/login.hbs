@@ -2,14 +2,15 @@
     <h1>Login</h1>
     <div class="wrapper">
         <div class="card auth-card">
-            <form id="login-form">
+            <form id="login" novalidate>
                 <div class="info">
                     <h3>Login</h3>
                     <p>Ingresa con tu email y password para que puedas entrar al area de Mobiles Stock</p>
                 </div>
-                {{>item-form _text=true _class="form-control text" _type="email" _name="email" _label="Email"}}
-                {{>item-form _text=true _class="form-control text" _type="password" _name="password" _label="Password"}}
-                {{>item-form _submit=true _class="form-control submit" _type="submit" _value="Login"}}
+                {{>message _class="red"}}
+                {{>item-form _text=true _class="text" _type="text" _name="email" _label="Email" _complete="off"}}
+                {{>item-form _text=true _class="text" _type="password" _name="password" _label="Password"}}
+                {{>item-form _submit=true _class="submit" _type="submit" _value="Login"}}
             </form>
         </div>
     </div>
