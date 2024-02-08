@@ -39,7 +39,7 @@ if(updateForm) {
 
         let id = e.currentTarget.dataset.id
         const formData = new FormData(e.currentTarget);
-        const res = await fetch(`/api/add/${id}`, {
+        const res = await fetch(`/api/edit/${id}`, {
             method: 'PUT',
             body: formData
         });

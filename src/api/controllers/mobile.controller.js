@@ -119,15 +119,54 @@ const postMobile = async (req, res) => {
 const putMobile = async (req, res) => {
     
     if(req.baseUrl == '/api') {
-        
-    } else {
         try {
-            
-            res.render()
-        } catch (error) {
-            res.render()
-        }
+            let { id } = req.params;
+            const { nombre, modelo, empresa, almacenado } = req.body;
+            const sims = Number(req.body.sims);
+            const cantidad = Number(req.body.cantidad);
+            const entregados = Number(req.body.entregados);
+            let stock = cantidad - entregados;
+            // let imagen = '';
+
+            const _next = async (imagen = false) => {
+
+                const mobile = {
+                    nombre, modelo, empresa, almacenado, sims, entregados, stock
+                };
+
+                if(imagen) {
+                    mobile = { ...mobile, imagen }
+                };
+    
+                const updateMobile = await Mobile.findByIdAndUpdate(id, mobile);
+                res.send( { 'Update Mobile': updateMobile } )
+            }
         
+            if(req.files) {
+                req.files.map(img => saveFile(img));
+            };
+            
+            if(req.file) {
+
+                const result = await uploadImageCloud(req.file.path);
+
+                fs.unlinkSync(req.file.path);
+
+                let imagen = {
+                    public_id: result.public_id,
+                    secure_url: result.secure_url
+                };
+
+                _next(imagen)
+            } else {
+                _next()
+            };
+        
+        } catch (error) {
+            res.send( { 'message': "Error en el proceso" } )
+        }
+    } else {
+        res.render( 'add', { token: req.token } )
     }
 };
 
