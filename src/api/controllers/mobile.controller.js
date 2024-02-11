@@ -121,24 +121,27 @@ const putMobile = async (req, res) => {
     if(req.baseUrl == '/api') {
         try {
             let { id } = req.params;
-            const { nombre, modelo, empresa, almacenado } = req.body;
-            const sims = Number(req.body.sims);
-            const cantidad = Number(req.body.cantidad);
-            const entregados = Number(req.body.entregados);
+            let { nombre, modelo, empresa, almacenado } = req.body;
+            let sims = Number(req.body.sims);
+            let cantidad = Number(req.body.cantidad);
+            let entregados = Number(req.body.entregados);
             let stock = cantidad - entregados;
-            // let imagen = '';
+
+            let mobile = { nombre, modelo, empresa, almacenado, sims, entregados, stock };
+
+            let foundMobile = await Mobile.findById(id);
+            if(!foundMobile) return res.send( { 'message': "Item no encontrado" } );
 
             const _next = async (imagen = false) => {
-
-                const mobile = {
-                    nombre, modelo, empresa, almacenado, sims, entregados, stock
-                };
 
                 if(imagen) {
                     mobile = { ...mobile, imagen }
                 };
     
-                const updateMobile = await Mobile.findByIdAndUpdate(id, mobile);
+                const updateMobile = await Mobile.findByIdAndUpdate(id, mobile, { new: true });
+                if(foundMobile.imagen.public_id) {
+                    await deleteImageCloud(foundMobile.imagen.public_id)
+                };
                 res.send( { 'Update Mobile': updateMobile } )
             }
         
@@ -149,7 +152,6 @@ const putMobile = async (req, res) => {
             if(req.file) {
 
                 const result = await uploadImageCloud(req.file.path);
-
                 fs.unlinkSync(req.file.path);
 
                 let imagen = {
